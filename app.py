@@ -11,8 +11,12 @@ import os
 from datetime import timedelta
 
 # Initialize Flask app
+
+# Use environment variable for Flask secret key (required in production)
 app = Flask(__name__)
-app.secret_key = os.environ.get('SECRET_KEY', 'your-secret-key-change-in-production')
+app.secret_key = os.getenv('FLASK_SECRET_KEY')
+if not app.secret_key:
+    raise RuntimeError('FLASK_SECRET_KEY environment variable is required for production.')
 app.permanent_session_lifetime = timedelta(hours=2)  # Session timeout
 
 # Database configuration
@@ -22,11 +26,14 @@ DATABASE = os.environ.get('DATABASE', 'database.db')
 LOW_STOCK_THRESHOLD = 10
 
 
+
 def init_db():
-    """Initialize the database and create tables if they don't exist."""
+    """
+    Initialize the SQLite database and create tables if they don't exist.
+    Also ensures a default admin user exists (username: admin, password: admin123).
+    """
     conn = sqlite3.connect(DATABASE)
     cursor = conn.cursor()
-    
     # Create users table
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS users (
@@ -35,7 +42,6 @@ def init_db():
             password TEXT NOT NULL
         )
     ''')
-    
     # Create products table
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS products (
@@ -47,17 +53,12 @@ def init_db():
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
     ''')
-    
-    # Create default admin user if not exists
-    cursor.execute("SELECT * FROM users WHERE username = 'admin'")
-    if not cursor.fetchone():
-        hashed_password = generate_password_hash('admin123')
-        cursor.execute("INSERT INTO users (username, password) VALUES (?, ?)", ('admin', hashed_password))
-        print("Default admin user created: admin / admin123")
-    
+    # Insert default admin user if not exists (INSERT OR IGNORE)
+    hashed_password = generate_password_hash('admin123')
+    cursor.execute("INSERT OR IGNORE INTO users (username, password) VALUES (?, ?)", ('admin', hashed_password))
     conn.commit()
     conn.close()
-    print("Database initialized successfully!")
+    print("Database initialized and admin user ensured.")
 
 
 # Initialize database when app starts

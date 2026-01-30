@@ -157,7 +157,7 @@
                                 </thead>
                                 <tbody>
                                     {% for product in products %}
-                                    <tr class="{% if product.is_low_stock %}low-stock-row{% endif %}">
+                                    <tr class="{% if product.quantity <= 5 %}low-stock-row{% endif %}">
                                         <td>{{ loop.index }}</td>
                                         <td>
                                             <strong>{{ product.product_name }}</strong>
@@ -167,12 +167,12 @@
                                         </td>
                                         <td class="price">${{ "%.2f"|format(product.price) }}</td>
                                         <td>
-                                            <span class="quantity {% if product.is_low_stock %}low{% else %}normal{% endif %}">
+                                            <span class="quantity {% if product.quantity <= 5 %}low{% else %}normal{% endif %}">
                                                 {{ product.quantity }}
                                             </span>
                                         </td>
                                         <td>
-                                            {% if product.is_low_stock %}
+                                            {% if product.quantity <= 5 %}
                                                 <span class="badge badge-low-stock">
                                                     <i class="bi bi-exclamation-circle me-1"></i>LOW STOCK
                                                 </span>

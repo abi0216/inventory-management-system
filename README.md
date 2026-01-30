@@ -32,7 +32,64 @@ inventory-management-system/
 ├── app.py                  # Main Flask application
 ├── requirements.txt        # Python dependencies
 ├── database.sql           # Database schema and sample data
-├── README.md              # This file
+<br />
+# Inventory Management System
+
+
+
+![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
+![Flask](https://img.shields.io/badge/Flask-3.0-green.svg)
+![SQLite](https://img.shields.io/badge/SQLite-3.0-blue.svg)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-purple.svg)
+
+---
+
+## 🚀 Live Demo
+
+**[View Deployed App on Render](https://inventory-management-system.onrender.com)**
+
+---
+
+## 🛠️ Tech Stack
+
+- **Backend:** Python Flask
+- **Database:** SQLite (file-based, zero setup)
+- **Frontend:** HTML5 + Bootstrap 5
+- **Authentication:** Session-based (Werkzeug security)
+- **Icons:** Bootstrap Icons
+
+---
+
+## ✨ Features
+
+- **User Authentication:** Secure session-based login/logout
+- **Product Management:** Add, edit, delete products
+- **Stock In/Out:** Update product quantity (stock in/out)
+- **Low Stock Alerts:** Red badge for products with quantity ≤ 5
+- **Dashboard Analytics:** Total products, total stock, low stock count
+- **Responsive UI:** Clean, mobile-friendly Bootstrap design
+- **Logout:** One-click logout from dashboard
+- **Deployment Ready:** Works on Render, Railway, etc.
+
+---
+
+## 📸 Screenshots
+
+> _Add your screenshots here!_
+
+![Dashboard Screenshot](screenshots/dashboard.png)
+![Login Screenshot](screenshots/login.png)
+
+---
+
+## 🗂️ Project Structure
+
+```
+inventory-management-system/
+│
+├── app.py                  # Main Flask application
+├── requirements.txt        # Python dependencies
+├── README.md               # This file
 │
 ├── templates/
 │   ├── login.html         # Login page
@@ -41,98 +98,75 @@ inventory-management-system/
 │   └── edit_product.html  # Edit product form
 │
 └── static/
-    └── css/
-        └── style.css      # Custom styles
+     └── css/
+          └── style.css      # Custom styles
 ```
 
-## Prerequisites
+---
 
-- Python 3.8 or higher
-- MySQL 8.0 or higher
-- pip (Python package manager)
+## 🖥️ Local Setup
 
-## Installation
+1. **Clone the repository:**
+    ```bash
+    git clone https://github.com/abi0216/inventory-management-system.git
+    cd inventory-management-system
+    ```
+2. **Create a virtual environment (recommended):**
+    ```bash
+    python -m venv venv
+    # Windows
+    venv\Scripts\activate
+    # macOS/Linux
+    source venv/bin/activate
+    ```
+3. **Install dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+4. **Set environment variable for Flask secret key:**
+    ```bash
+    # Windows
+    set FLASK_SECRET_KEY=your-very-secret-key
+    # macOS/Linux
+    export FLASK_SECRET_KEY=your-very-secret-key
+    ```
+5. **Run the app:**
+    ```bash
+    python app.py
+    ```
+6. **Login:**
+    - Username: `admin`
+    - Password: `admin123`
 
-### 1. Clone or Download the Project
+---
 
-```bash
-cd inventory-management-system
-```
+## ☁️ Deployment (Render)
 
-### 2. Create Virtual Environment (Recommended)
+1. **Push your code to GitHub.**
+2. **Create a new Web Service on [Render](https://render.com):**
+    - **Build Command:** `pip install -r requirements.txt`
+    - **Start Command:** `gunicorn app:app`
+3. **Add environment variable:**
+    - `FLASK_SECRET_KEY=your-very-secret-key`
+4. **Deploy!**
 
-```bash
-python -m venv venv
+---
 
-# Windows
-venv\Scripts\activate
+## 📋 License
 
-# macOS/Linux
-source venv/bin/activate
-```
+MIT License. Free for personal and commercial use.
 
-### 3. Install Dependencies
+---
 
-```bash
-pip install -r requirements.txt
-```
+## 🙋‍♂️ Author & Credits
 
-### 4. Set Up MySQL Database
+- [abi0216](https://github.com/abi0216)
 
-#### Option A: Using MySQL Command Line
-```bash
-mysql -u root -p < database.sql
-```
+---
 
-#### Option B: Using MySQL Workbench
-1. Open MySQL Workbench
-2. Connect to your MySQL server
-3. Open `database.sql` file
-4. Execute the script
+## 💡 Portfolio Use
 
-### 5. Configure Database Connection
-
-Edit the database configuration in `app.py` or set environment variables:
-
-```python
-# Default configuration in app.py
-DB_CONFIG = {
-    'host': 'localhost',
-    'user': 'root',
-    'password': '',  # Add your MySQL password here
-    'database': 'inventory_db'
-}
-```
-
-Or use environment variables:
-```bash
-# Windows
-set DB_HOST=localhost
-set DB_USER=root
-set DB_PASSWORD=your_password
-set DB_NAME=inventory_db
-
-# macOS/Linux
-export DB_HOST=localhost
-export DB_USER=root
-export DB_PASSWORD=your_password
-export DB_NAME=inventory_db
-```
-
-### 6. Create Admin User
-
-Visit `http://localhost:5000/create_admin` to create the default admin user, or the user will be created from the SQL script.
-
-**Default Credentials:**
-- Username: `admin`
-- Password: `admin123`
-
-### 7. Run the Application
-
-```bash
-python app.py
-```
-
+This project is clean, beginner-friendly, and ready for your portfolio. Fork, star, and use it as a base for your own inventory or admin systems!
 The application will be available at: `http://localhost:5000`
 
 ## Usage
